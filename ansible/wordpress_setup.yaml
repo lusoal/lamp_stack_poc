@@ -1,0 +1,11 @@
+---
+
+- hosts: default
+  become: yes
+  user: ec2-user
+
+  roles:
+    - php
+    - nginx
+    - wordpress
+    

@@ -1,0 +1,7 @@
+---
+nginx:
+  package_name: nginx
+  configure_php: true
+  server_name: teste.example
+  directory_name: /var/www/html
+# defaults file for nginx

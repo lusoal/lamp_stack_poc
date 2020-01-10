@@ -1,0 +1,16 @@
+---
+wordpress:
+  server_name: 
+  wp_home: 
+  wordpress_directory: /var/www/html/wordpress
+  
+  package: latest.tar.gz
+  dest_directory: /var/www/html
+  web_user: nginx
+  
+  db_name: wordpress
+  db_user: 
+  db_password: 
+  db_host: 
+  db_host_replica: 
+# defaults file for wordpress

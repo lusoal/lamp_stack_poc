@@ -1,0 +1,19 @@
+---
+- name: Send file to /etc/php-fpm.d/
+  copy:
+    src: www.conf
+    dest: /etc/php-fpm.d/www.conf
+    owner: root
+    group: root
+    mode: '0644'
+    force: yes
+
+- name: Send file to /etc/php-fpm.d/
+  copy:
+    src: php.ini
+    dest: /etc/php.ini
+    owner: root
+    group: root
+    mode: '0644'
+    force: yes
+  notify: "Restart php"

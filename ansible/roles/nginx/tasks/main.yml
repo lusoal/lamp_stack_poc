@@ -1,0 +1,10 @@
+---
+- name: Install Nginx on Amazon Linux
+  include: amazon_linux_1.yml
+  when: ansible_facts['distribution'] == "Amazon" and ansible_facts['distribution_major_version'] == "2018"
+  # Support for Amazon Linux 1
+
+- name: Configure PHP Static Page Test
+  include: nginx_configure_php.yml
+  when: "nginx.configure_php == true"
+# tasks file for php

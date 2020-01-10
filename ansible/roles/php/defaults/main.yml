@@ -1,0 +1,5 @@
+---
+php:
+  listen: /var/run/php-fpm/php-fpm.sock
+  nginx_support: true
+# defaults file for php

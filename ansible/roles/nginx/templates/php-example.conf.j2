@@ -1,0 +1,25 @@
+#
+# The default server
+#
+server {
+    listen       80;
+    server_name {{ nginx.server_name }};
+    
+   
+    location / {
+        root   {{ nginx.directory_name }};
+        index index.php  index.html index.htm;
+    }
+
+    # pass the PHP scripts to FastCGI server listening on /var/run/php-fpm/php-fpm.sock
+    #
+    location ~ \.php$ {
+        root          {{ nginx.directory_name }};
+        try_files     $uri =404;
+        fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include       fastcgi_params;
+    }
+
+}

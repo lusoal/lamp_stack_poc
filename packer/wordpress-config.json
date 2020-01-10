@@ -1,0 +1,40 @@
+{
+    "variables": {
+        "region": "us-east-1",
+        "subnet_id": "subnet-01528f7b2333bd50b",
+        "vpc-name": "vpc-projeto",
+        "ami_id": "ami-00eb20669e0990cb4"
+    },
+    "builders": [
+        {
+            "ami_name": "wordpress-{{timestamp}}",
+            "instance_type": "t2.micro",
+            "region": "{{user `region`}}",
+            "ssh_username": "ec2-user",
+            "associate_public_ip_address": true,
+            "subnet_id": "{{user `subnet_id`}}",
+            "source_ami": "{{user `ami_id`}}",
+            "type": "amazon-ebs",
+            "vpc_filter": {
+                "filters": {
+                    "tag:Name": "{{user `vpc-name`}}",
+                    "isDefault": "false"
+                }
+            },
+            "subnet_filter": {
+                "filters": {
+                    "tag:Name": "subnet-pub-*"
+                },
+                "most_free": true,
+                "random": false
+            }
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "ansible",
+            "playbook_file": "../ansible/wordpress_setup.yaml",
+            "inventory_directory": "../ansible/prd"
+        }
+    ]
+}

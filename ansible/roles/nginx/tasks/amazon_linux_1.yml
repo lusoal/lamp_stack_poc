@@ -1,0 +1,21 @@
+---
+- name: upgrade all packages
+  yum:
+    name: '*'
+    state: latest
+
+- name: Install PHP Packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - "{{ nginx.package_name }}"
+
+- name: Create Nginx directory
+  file:
+    path: "{{ nginx.directory_name }}"
+    state: directory
+    mode: '0755'
+    recurse: yes
+  notify: "Restart nginx"
+# tasks file for nginx

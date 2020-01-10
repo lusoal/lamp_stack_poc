@@ -1,0 +1,30 @@
+---
+- name: Send file to /etc/nginx/conf.d
+  template:
+    src: php-example.conf.j2
+    dest: /etc/nginx/conf.d/php-info.conf
+    owner: root
+    group: root
+    mode: '0644'
+    force: yes
+  
+- name: Validate Nginx Syntax
+  command: nginx -t
+  become: true
+  notify: "Restart nginx"
+
+- name: Info PHP
+  copy:
+    src: info.php
+    dest: "{{ nginx.directory_name }}/info.php"
+    owner: root
+    group: root
+    mode: '0644'
+    force: yes
+  notify: "Restart nginx"
+
+- name: Restart PHP-FPM
+  service:
+    name: php-fpm
+    enabled: yes
+    state: restarted

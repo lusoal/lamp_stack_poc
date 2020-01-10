@@ -1,0 +1,35 @@
+---
+
+- name: upgrade all packages
+  yum:
+    name: '*'
+    state: latest
+
+- name: install the nginx rpm from a remote repo
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - https://mirror.webtatic.com/yum/el6/latest.rpm
+    - https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+
+- name: Install PHP Packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - php71w
+    - php71w-cli
+    - php71w-fpm
+    - php71w-mysql
+    - php71w-xml
+    - php71w-curl
+    - php71w-opcache
+    - php71w-pdo
+    - php71w-gd
+    - php71w-pecl-apcu
+    - php71w-mbstring
+    - php71w-imap
+    - php71w-pecl-redis
+    - php71w-mcrypt
+  notify: "Restart php"
